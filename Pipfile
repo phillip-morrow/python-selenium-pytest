@@ -7,6 +7,8 @@ name = "pypi"
 pytest-selenium = "*"
 selenium = "*"
 pytest = "*"
+webdriver-manager = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
