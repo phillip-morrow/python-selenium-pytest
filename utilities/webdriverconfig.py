@@ -6,7 +6,7 @@ import os
 
 driver = os.environ.get("driver")
 
-def SetDriver() :
+def setdriver() :
     if (driver == "CHROME"):
         return webdriver.Chrome(ChromeDriverManager().install())
     if (driver == "FIREFOX"):
