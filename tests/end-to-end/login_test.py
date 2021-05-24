@@ -13,4 +13,5 @@ class TestLogin():
     def testUserLogin(self):
         self.driver.get(os.environ.get('BASE_URL'))
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(By.ID, 'username')).send_keys(config['USERNAME'])
-        self.driver.find_element_by_id('password').send_keys(config['PASSWORD'])
+        self.driver.find_element(By.ID, 'password').send_keys(config['PASSWORD'])
+        self.driver.find_element(By.XPATH, '#button').click()
