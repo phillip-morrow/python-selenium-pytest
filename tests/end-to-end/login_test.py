@@ -3,14 +3,16 @@ import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
-config = dotenv_values('../.env')
+load_dotenv()
 
-@pytest.mark.usefixtures("driver_init")
-class TestLogin():
+@pytest.mark.usefixtures("driver_get")
+class TestLogin:
 
-    def testUserLogin(self):
+    def test_user_login(self):
+        wait = WebDriverWait(self.driver, 3)
         self.driver.get(os.environ.get('BASE_URL'))
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(By.ID, 'username')).send_keys(config['USERNAME'])
-        self.driver.find_element_by_id('password').send_keys(config['PASSWORD'])
+        wait.until(EC.visibility_of_element_located((By.ID,"username"))).send_keys(os.environ.get("TEST_USER"))
+        self.driver.find_element(By.ID, "password").send_keys(os.environ.get("TEST_PASS"))
+        wait.until(EC.visibility_of_element_located((By.XPATH,"//span[contains(text(), 'Sign In')][not(@disabled)]"))).click()
