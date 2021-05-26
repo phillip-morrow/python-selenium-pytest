@@ -3,3 +3,4 @@
 .pytest_cache
 
 /tests/end-to-end/__pycache__
+/utilities/__pycache__
