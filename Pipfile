@@ -9,6 +9,7 @@ pytest = "*"
 python-dotenv = "*"
 webdriver-manager = "*"
 selenium-wire = "*"
+pytest-html-reporter = "*"
 
 [dev-packages]
 autopep8 = "*"

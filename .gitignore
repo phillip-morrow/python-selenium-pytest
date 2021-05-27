@@ -1,6 +1,9 @@
 .env
 .vscode
 .pytest_cache
+output.json
+pytest_html_report.html
 
 /tests/end-to-end/__pycache__
 /utilities/__pycache__
+/archive
