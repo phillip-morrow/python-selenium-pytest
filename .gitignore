@@ -4,6 +4,5 @@
 output.json
 pytest_html_report.html
 
-/tests/end-to-end/__pycache__
-/utilities/__pycache__
+**/*/__pycache__
 /archive
