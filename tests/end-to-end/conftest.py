@@ -3,7 +3,7 @@ import pytest
 from pytest_html_reporter import attach
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from utilities.webdriverconfig import setdriver
+from utilities.webdriver_config import setdriver
 from selenium.webdriver.support import expected_conditions as EC
 
 from dotenv import load_dotenv
@@ -18,7 +18,7 @@ def driver_get(request):
     domain = os.environ.get('BASE_URL')
     port = os.environ.get('FRONT_END_PORT')
     baseUrl = f'{domain}:{port}'
-    driver.get(os.environ.get(baseUrl))
+    driver.get(baseUrl)
     wait.until(EC.visibility_of_element_located(
         (By.ID, "username"))).send_keys(os.environ.get("TEST_USER"))
     driver.find_element(By.ID, "password").send_keys(
