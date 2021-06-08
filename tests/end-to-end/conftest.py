@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def driver_get(request):
     driver = setdriver()
     wait = WebDriverWait(driver, 3)
@@ -25,11 +25,8 @@ def driver_get(request):
         os.environ.get("TEST_PASS"))
     wait.until(EC.visibility_of_element_located(
         (By.XPATH, "//span[contains(text(), 'Sign In')][not(@disabled)]"))).click()
-    session = request.node
-    for item in session.items:
-        cls = item.getparent(pytest.Class)
-        setattr(cls.obj, "driver", driver)
+    request.cls.driver = driver
     yield
     attach(data=driver.get_screenshot_as_png())
-    driver.find_element_by_xpath("//*[text()='Logout']")
+    driver.find_element_by_xpath("//*[text()='Logout']").click()
     driver.close()

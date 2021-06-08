@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def login():
     domain = os.environ.get('BASE_URL')
     port = os.environ.get('BACK_END_PORT')
