@@ -19,8 +19,19 @@ class TestPublicTransactions:
 
         transactions = response_payload['results']
 
-        print(transactions)
-
         with soft_assertions():
             assert_that(response.status_code).is_equal_to(200)
             assert_that(transactions).is_not_empty()
+
+    def test_transaction_post(self):
+        request_payload = {"transactionType": "payment", "amount": "5000",
+                           "description": "lot o money", "senderId": "Hk_RyxBFd", "receiverId": "t45AiwidW"}
+
+        response = requests.post(f'{pytest.baseUrl}/transactions',
+                                 headers=headers(pytest.cookies), data=request_payload)
+
+        response_payload = response.json()
+
+        with soft_assertions():
+            assert_that(response.status_code).is_equal_to(200)
+            assert_that(response_payload['transaction']['status']).is_equal_to('complete')
