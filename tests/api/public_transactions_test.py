@@ -11,7 +11,7 @@ load_dotenv()
 @pytest.mark.usefixtures("login")
 class TestPublicTransactions:
 
-    def test_get_public_transactions(self):
+    def test_get_public_transactions_with_token(self):
         response = requests.get(
             f'{pytest.baseUrl}/transactions/public', headers=headers(pytest.cookies))
 
@@ -22,6 +22,16 @@ class TestPublicTransactions:
         with soft_assertions():
             assert_that(response.status_code).is_equal_to(200)
             assert_that(transactions).is_not_empty()
+
+    def test_get_public_transactions_without_token(self):
+        response = requests.get(
+            f'{pytest.baseUrl}/transactions/public')
+
+        response_payload = response.json()
+
+        with soft_assertions():
+            assert_that(response.status_code).is_equal_to(401)
+            assert_that(response_payload).is_equal_to({'error': 'Unauthorized'})
 
     def test_transaction_post(self):
         request_payload = {"transactionType": "payment", "amount": "5000",
@@ -34,4 +44,5 @@ class TestPublicTransactions:
 
         with soft_assertions():
             assert_that(response.status_code).is_equal_to(200)
-            assert_that(response_payload['transaction']['status']).is_equal_to('complete')
+            assert_that(response_payload['transaction']
+                        ['status']).is_equal_to('complete')
