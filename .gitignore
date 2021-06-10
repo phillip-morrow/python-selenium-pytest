@@ -8,3 +8,4 @@ pytest_html_report.html
  __pycache__/
 /archive
 .ipynb_checkpoints/
+__pycache__/*

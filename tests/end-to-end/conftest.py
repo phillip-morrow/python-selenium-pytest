@@ -15,14 +15,14 @@ load_dotenv()
 def driver_get(request):
     driver = setdriver()
     wait = WebDriverWait(driver, 3)
-    domain = os.environ.get('BASE_URL')
-    port = os.environ.get('FRONT_END_PORT')
+    domain = os.getenv('BASE_URL')
+    port = os.getenv('FRONT_END_PORT')
     baseUrl = f'{domain}:{port}'
     driver.get(baseUrl)
     wait.until(EC.visibility_of_element_located(
-        (By.ID, "username"))).send_keys(os.environ.get("TEST_USER"))
+        (By.ID, "username"))).send_keys(os.getenv("TEST_USER"))
     driver.find_element(By.ID, "password").send_keys(
-        os.environ.get("TEST_PASS"))
+        os.getenv("TEST_PASS"))
     wait.until(EC.visibility_of_element_located(
         (By.XPATH, "//span[contains(text(), 'Sign In')][not(@disabled)]"))).click()
     request.cls.driver = driver

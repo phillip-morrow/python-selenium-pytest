@@ -31,7 +31,8 @@ class TestPublicTransactions:
 
         with soft_assertions():
             assert_that(response.status_code).is_equal_to(401)
-            assert_that(response_payload).is_equal_to({'error': 'Unauthorized'})
+            assert_that(response_payload).is_equal_to(
+                {'error': 'Unauthorized'})
 
     def test_transaction_post(self):
         request_payload = {"transactionType": "payment", "amount": "5000",
